@@ -12,8 +12,11 @@
 body {
   font-family: "Wix Madefor Display", Arial, Helvetica, sans-serif;
   color: white;
-  padding: 4rem 0;
   background: url(assets/gradient-background.png) no-repeat center / cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 :root {
@@ -33,9 +36,9 @@ input[type="text"] {
 /* Header section */
 
 .header,
-body > div:nth-child(2),
+body > div > div:nth-child(2),
 .toggle {
-  width: clamp(29rem, 80%, 42rem);
+  width: clamp(29rem, 90%, 45rem);
   display: flex;
   align-items: center;
   margin: auto;
@@ -89,10 +92,10 @@ body > div:nth-child(2),
 
 /* Parent container for Forecast + Chat */
 
-body > div:nth-child(2) {
+body > div > div:nth-child(2) {
   border: 1px solid var(--translucent);
   border-radius: 0.7rem;
-  height: 25rem;
+  height: 23rem;
 }
 
 /* Weather forecast section */
@@ -173,24 +176,25 @@ body > div:nth-child(2) {
 /* Chat section */
 
 #chat {
-  padding: 1rem;
+  padding: 1rem 1.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   width: 50%;
   font-size: 0.7rem;
 }
 
 .chat-bubble > div {
   width: 10.3rem;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 0.5rem;
   position: relative;
-  background-color: var(--more-translucent);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #1a1a1a;
 }
 
 .chat-bubble > p:first-child {
-  color: var(--translucent);
+  color: white;
+  margin-bottom: 0.2rem;
 }
 
 .chat-bubble:nth-child(even) {
@@ -203,8 +207,8 @@ body > div:nth-child(2) {
 }
 
 .chat-bubble span {
-  font-weight: 700;
-  color: #ff9785;
+  font-weight: 600;
+  color: #115468;
   cursor: pointer;
 }
 
@@ -216,16 +220,21 @@ body > div:nth-child(2) {
 }
 
 .toggle > div {
-  width: 2.5rem;
+  width: 2.1rem;
   height: 1rem;
-  background-color: rgb(163, 163, 163);
+  background-color: var(--more-translucent);
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .toggle > div > div {
   width: 1rem;
   height: 1rem;
-  background-color: rgb(15, 15, 15);
+  background-color: rgb(255, 255, 255);
   border-radius: 50%;
-  /* margin-left: auto; */
+  margin-left: auto; /* Remove to toggle */
+}
+
+.toggle p:first-child {
+  color: var(--translucent);
 }
