@@ -5,6 +5,29 @@
 }
 
 @font-face {
-    font-family: 'Some Font';
-    src: url('./someFont.ttf') format('truetype');
+    font-family: 'Wix Madefor Display';
+    src: url('./WixMadeforDisplay-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Wix Madefor Display';
+    padding: 3rem 0;
+}
+
+.header {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 1rem;
+}
+
+.header div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.forecast {
+    
 }
