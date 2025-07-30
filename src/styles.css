@@ -17,8 +17,8 @@ body {
 }
 
 :root {
-  --translucent: rgba(255, 255, 255, 0.3);
-  --more-translucent: rgba(255, 255, 255, 0.2);
+  --translucent: rgba(255, 255, 255, 0.4);
+  --more-translucent: rgba(255, 255, 255, 0.15);
 }
 
 button,
@@ -27,6 +27,7 @@ input[type="text"] {
   -moz-appearance: none;
   border: none;
   background: none;
+  font-size: 0.8rem;
 }
 
 /* Header section */
@@ -55,17 +56,11 @@ body > div:nth-child(2),
 }
 
 .header h1 {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
 }
 
 .header p {
   color: var(--translucent);
-}
-
-.header > div > div {
-  width: min-content;
-  display: flex;
-  gap: 0.35rem;
 }
 
 .header input[type="text"] {
@@ -79,7 +74,7 @@ body > div:nth-child(2),
 .header input[type="text"]::placeholder {
   color: white;
   font-family: "Wix Madefor Display", Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .header input[type="text"]:focus {
@@ -95,7 +90,9 @@ body > div:nth-child(2),
 /* Parent container for Forecast + Chat */
 
 body > div:nth-child(2) {
-  border: 1px solid black;
+  border: 1px solid var(--translucent);
+  border-radius: 0.7rem;
+  height: 25rem;
 }
 
 /* Weather forecast section */
@@ -104,7 +101,53 @@ body > div:nth-child(2) {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   width: 50%;
+  height: 100%;
+  border-top-left-radius: 0.7rem;
+  border-bottom-left-radius: 0.7rem;
+  background-color: var(--more-translucent);
+}
+
+#location,
+#temp {
+  border-bottom: 1px solid var(--translucent);
+}
+
+#location h2,
+#humidity p,
+#precip p {
+  font-size: 1.35rem;
+}
+
+#location p,
+#humidity h2,
+#precip h2 {
+  font-size: 0.7rem;
+  color: var(--translucent);
+}
+
+#temp h2 {
+  font-size: 2.8rem;
+  font-weight: bolder;
+  display: inline;
+}
+
+#temp p:first-of-type {
+  display: inline;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+#temp p:last-of-type {
+  color: var(--translucent);
+}
+
+#temp div {
+  margin: -0.5rem auto;
+  width: 7rem;
+  height: 5rem;
+  background: url(assets/partly-cloudy.png) no-repeat center / cover;
 }
 
 #forecast > div {
@@ -123,6 +166,15 @@ body > div:nth-child(2) {
 #humidity,
 #precip {
   width: 50%;
+}
+
+#humidity p,
+#precip p {
+  font-weight: bold;
+}
+
+#humidity {
+  border-right: 1px solid var(--translucent);
 }
 
 /* Chat section */
