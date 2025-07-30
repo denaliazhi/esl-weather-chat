@@ -1,33 +1,64 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'Wix Madefor Display';
-    src: url('./WixMadeforDisplay-VariableFont_wght.ttf') format('truetype');
+  font-family: "Wix Madefor Display";
+  src: url("./WixMadeforDisplay-VariableFont_wght.ttf") format("truetype");
 }
 
 body {
-    font-family: 'Wix Madefor Display';
-    padding: 3rem 0;
+  font-family: "Wix Madefor Display";
+  padding: 3rem 0;
+}
+
+.header,
+body > div:nth-child(2) {
+  width: clamp(29rem, 80%, 42rem);
+  display: flex;
+  align-items: center;
+  margin: auto;
 }
 
 .header {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto 1rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
 }
 
 .header div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.forecast {
-    
+/* Parent container for Forecast + Chat */
+body > div:nth-child(2) {
+  border: 1px solid black;
+}
+
+#forecast {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+#forecast > div {
+  padding: 1rem;
+}
+
+#temp {
+  padding: 2rem;
+}
+
+#location,
+#temp {
+  width: 100%;
+}
+
+#humidity,
+#precip {
+  width: 50%;
 }
