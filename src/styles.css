@@ -10,9 +10,26 @@
 }
 
 body {
-  font-family: "Wix Madefor Display";
+  font-family: "Wix Madefor Display", Arial, Helvetica, sans-serif;
+  color: white;
   padding: 3rem 0;
+  background: url(assets/gradient-background.png) no-repeat center / cover;
 }
+
+:root {
+  --translucent: rgba(255, 255, 255, 0.3);
+  --more-translucent: rgba(255, 255, 255, 0.2);
+}
+
+button,
+input[type="text"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+}
+
+/* Header section */
 
 .header,
 body > div:nth-child(2),
@@ -26,18 +43,62 @@ body > div:nth-child(2),
 .header {
   margin-bottom: 1rem;
   justify-content: space-between;
+  gap: 2rem;
 }
 
-.header div {
+.header > div {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.3rem 0.75rem;
+  justify-content: right;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+.header p {
+  color: var(--translucent);
+}
+
+.header > div > div {
+  width: min-content;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.header input[type="text"] {
+  background-color: var(--more-translucent);
+  border-radius: 0.7rem;
+  padding: 0.35rem 1rem;
+  width: 7rem;
+  color: white;
+}
+
+.header input[type="text"]::placeholder {
+  color: white;
+  font-family: "Wix Madefor Display", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.header input[type="text"]:focus {
+  outline: white solid 1px;
+}
+
+.header button {
+  color: var(--translucent);
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 /* Parent container for Forecast + Chat */
+
 body > div:nth-child(2) {
   border: 1px solid black;
 }
+
+/* Weather forecast section */
 
 #forecast {
   text-align: center;
@@ -64,6 +125,8 @@ body > div:nth-child(2) {
   width: 50%;
 }
 
+/* Chat section */
+
 #chat {
   padding: 1rem;
   display: flex;
@@ -83,6 +146,8 @@ body > div:nth-child(2) {
 .chat-bubble:nth-child(even) div p {
   text-align: left;
 }
+
+/* Toggle for temperature conversion */
 
 .toggle {
   margin-top: 1rem;
