@@ -63,14 +63,17 @@ async function search(loc) {
   try {
     // Fetch current weather data for location
     const data = await getWeatherData(loc);
-    console.log(data);
+
     // Split forecast data by day
     const dailyForecasts = splitByDay(data);
+
     // Update last searched location in local storage
-    localStorage.setItem("lastSearch", data.resolvedAddress);
+    const validLoc = data.resolvedAddress;
+    localStorage.setItem("lastSearch", validLoc);
+
     // For current day's forecast:
-    renderForecast(dailyForecasts[1]);
-    renderChat(dailyForecasts[1]);
+    renderForecast(dailyForecasts[1], validLoc);
+    renderChat(dailyForecasts[1], validLoc);
   } catch (err) {
     console.log(err);
     throw err;

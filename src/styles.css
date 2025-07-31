@@ -126,24 +126,24 @@ body > div > div:nth-child(2) {
   color: var(--translucent);
 }
 
-#temp h2 {
+#main h2 {
   font-size: 2.8rem;
   font-weight: bolder;
   display: inline;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
 }
 
-#temp p:first-of-type {
+/* #main p:first-of-type {
   display: inline;
   vertical-align: top;
   font-weight: bold;
-}
+} */
 
-#temp p:last-of-type {
+#main p:last-of-type {
   color: var(--translucent);
 }
 
-#temp div {
+#main div {
   margin: -0.5rem auto;
   width: 7rem;
   height: 5rem;
@@ -155,7 +155,7 @@ body > div > div:nth-child(2) {
 }
 
 #location,
-#temp {
+#main {
   width: 100%;
 }
 
@@ -165,7 +165,7 @@ body > div > div:nth-child(2) {
 }
 
 #location,
-#temp {
+#main {
   border-bottom: 1px solid var(--translucent);
 }
 
