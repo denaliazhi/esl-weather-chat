@@ -5,9 +5,9 @@
 
 import "./styles.css";
 import getWeatherData from "./weather-api.js";
-// import splitByDay from "./split-forecast-data.js";
-// import renderForecast from "./render-forecast.js";
-// import renderChat from "./render-chat.js";
+import splitByDay from "./daily-forecasts.js";
+import renderForecast from "./render-forecast.js";
+import renderChat from "./render-chat.js";
 
 function handler() {
   // Determine content to show on page load
@@ -22,21 +22,16 @@ function handler() {
   const searchBtn = document.querySelector("button");
 
   searchBtn.addEventListener("click", () => {
-    if (!isValidInput(input.value)) {
-      alert(
-        "Invalid input. Please follow this format: city, state (optional), country (optional)"
-      );
+    let value = formatInput(input.value);
+    if (!isValidInput(value)) {
+      alert("Invalid input. Use format: city*, state, country. * = required.");
       return;
     }
 
-    location = input.value;
-    try {
-      search(location);
-    } catch (err) {
-      alert(`Sorry, we couldn't get the forecast for this location. ${err}`);
-    }
+    search(value).catch((err) => {
+      alert(`We couldn't get the forecast for this location. ${err}`);
+    });
   });
-
   // Handle temperature toggle
   const toggle = document.querySelector(".toggle div");
   const indicator = toggle.querySelector("div");
@@ -64,25 +59,25 @@ function handler() {
   });
 }
 
-function search(loc) {
-  // getWeatherData("New York,NY").then((resp) => {
-  // console.log(resp);
-  // });
-  // Fetch current weather data for location
-  // Split data into individual Forecast obj
-  // Update last searched location in local storage
-  // For current day's forecast:
-  //    Update forecast widget
-  //    Update chat widget
+async function search(loc) {
+  try {
+    // Fetch current weather data for location
+    const data = await getWeatherData(loc);
+    console.log(data);
+    // Split forecast data by day
+    const dailyForecasts = splitByDay(data);
+    // Update last searched location in local storage
+    localStorage.setItem("lastSearch", data.resolvedAddress);
+    // For current day's forecast:
+    renderForecast(dailyForecasts[1]);
+    renderChat(dailyForecasts[1]);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 function isValidInput(str) {
-  // Trim white spaces
-  str = str.trim();
-  // Trim commas
-  str = str.replace(/^,+|,+$/g, "");
-
-  console.log(str);
   // Check that string only has these characters
   const regex = /^[a-zA-Z,\s]+$/;
   if (!regex.test(str)) return false;
@@ -90,6 +85,11 @@ function isValidInput(str) {
   return true;
 }
 
-function formatInput(str) {}
+function formatInput(str) {
+  str = str.trim();
+  // Trim commas
+  str = str.replace(/^,+|,+$/g, "");
+  return str;
+}
 
-handler();
+// handler();
