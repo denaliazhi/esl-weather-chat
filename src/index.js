@@ -4,8 +4,7 @@
  */
 
 import "./styles.css";
-// import someFunction from "./module.js";
-// import getWeatherData from "./weather-api.js";
+import getWeatherData from "./weather-api.js";
 // import splitByDay from "./split-forecast-data.js";
 // import renderForecast from "./render-forecast.js";
 // import renderChat from "./render-chat.js";
@@ -23,13 +22,18 @@ function handler() {
   const searchBtn = document.querySelector("button");
 
   searchBtn.addEventListener("click", () => {
-    if (!isValidInput(input.value)) return;
+    if (!isValidInput(input.value)) {
+      alert(
+        "Invalid input. Please follow this format: city, state (optional), country (optional)"
+      );
+      return;
+    }
 
     location = input.value;
     try {
       search(location);
     } catch (err) {
-      alert(`The location could not be found. ${err}`);
+      alert(`Sorry, we couldn't get the forecast for this location. ${err}`);
     }
   });
 
@@ -61,6 +65,9 @@ function handler() {
 }
 
 function search(loc) {
+  // getWeatherData("New York,NY").then((resp) => {
+  // console.log(resp);
+  // });
   // Fetch current weather data for location
   // Split data into individual Forecast obj
   // Update last searched location in local storage
@@ -70,10 +77,19 @@ function search(loc) {
 }
 
 function isValidInput(str) {
-  // Check that string is not empty
-  // Check that string only contains alphabetic chars and/or commas
-  // Check that string contains at most 2 commas (and they're non-adjacent)
+  // Trim white spaces
+  str = str.trim();
+  // Trim commas
+  str = str.replace(/^,+|,+$/g, "");
+
+  console.log(str);
+  // Check that string only has these characters
+  const regex = /^[a-zA-Z,\s]+$/;
+  if (!regex.test(str)) return false;
+
   return true;
 }
+
+function formatInput(str) {}
 
 handler();
