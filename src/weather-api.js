@@ -13,12 +13,12 @@ async function getWeatherData(loc) {
 
   try {
     const resp = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}/${startDate}/${endDate}?unitGroup=us&include=days&key=${key}&contentType=json`
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}/${startDate}/${endDate}?unitGroup=us&include=days&key=${key}&iconset=icons2&contentType=json`
     );
     const data = await resp.json();
     return data;
   } catch (err) {
-    return "Error: Weather data not found.";
+    throw new Error("Weather data not found.");
   }
 }
 
