@@ -29,9 +29,49 @@ function setTemp(day) {
 function setIcon(day) {
   const icon = document.querySelector("#main div");
   const path = getIconPath(day.icon);
-  icon.style.backgroundImage = `url(${path})`;
+  icon.style.backgroundImage = `url(https://openweathermap.org/img/wn/${path}@2x.png)`;
 }
-function getIconPath(day) {}
+
+// Using icons from https://openweathermap.org/weather-conditions
+function getIconPath(icon) {
+  switch (icon) {
+    case "clear-day":
+      return "01d";
+    case "clear-night":
+      return "01n";
+    case "cloudy":
+      return "03d";
+    case "partly-cloudy-day":
+      return "02d";
+    case "partly-cloudy-night":
+      return "02n";
+    case "fog":
+    case "wind":
+      return "50d";
+    case "rain-snow-showers-day":
+    case "rain-snow-showers-night":
+    case "rain-snow":
+    case "rain":
+      return "09d";
+    case "showers-day":
+      return "10d";
+    case "showers-night":
+      return "10n";
+    case "sleet":
+    case "hail":
+    case "snow-showers-day":
+    case "snow-showers-night":
+    case "snow":
+      return "13d";
+    case "thunder-rain":
+    case "thunder-showers-day":
+    case "thunder-showers-night":
+    case "thunder":
+      return "11d";
+    default:
+      return "02d";
+  }
+}
 
 function setCondition(day) {
   const condition = document.querySelector("#condition");

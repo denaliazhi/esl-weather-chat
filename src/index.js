@@ -95,4 +95,4 @@ function formatInput(str) {
   return str;
 }
 
-// handler();
+handler();
