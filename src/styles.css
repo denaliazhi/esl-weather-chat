@@ -222,19 +222,19 @@ body > div > div:nth-child(2) {
 .toggle > div {
   width: 2.1rem;
   height: 1rem;
+  padding: 0.1rem;
   background-color: var(--more-translucent);
   border-radius: 1rem;
   cursor: pointer;
 }
 
 .toggle > div > div {
-  width: 1rem;
-  height: 1rem;
+  width: 0.8rem;
+  height: 0.8rem;
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
-  margin-left: auto; /* Remove to toggle */
 }
 
-.toggle p:first-child {
+.toggle p:last-child {
   color: var(--translucent);
 }
