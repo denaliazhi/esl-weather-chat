@@ -9,7 +9,7 @@ class Forecast {
     this.farenheit = obj.temp;
     this.feelsLike = obj.feelslike;
     this.dewpoint = obj.dew;
-    this.precip = obj.precipprob;
+    this.precipProb = obj.precipprob;
     this.clouds = obj.cloudcover;
     this.icon = obj.icon;
   }
