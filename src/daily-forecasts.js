@@ -5,7 +5,9 @@
 
 // Represents forecast data for a day
 class Forecast {
-  constructor(obj) {
+  constructor(obj, loc) {
+    this.location = loc;
+    this.date = obj.datetime;
     this.farenheit = obj.temp;
     this.feelsLike = obj.feelslike;
     this.dewpoint = obj.dew;
@@ -21,8 +23,9 @@ class Forecast {
 }
 
 function splitByDay(obj) {
+  const location = obj.resolvedAddress;
   const allDays = obj.days;
-  const forecasts = allDays.map((day) => new Forecast(day));
+  const forecasts = allDays.map((day) => new Forecast(day, location));
   console.log(forecasts);
   return forecasts;
 }

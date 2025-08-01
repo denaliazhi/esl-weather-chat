@@ -3,8 +3,8 @@
  * section of the DOM
  */
 
-function renderForecast(day, loc, tempUnit) {
-  setLocation(loc);
+function renderForecast(day, tempUnit) {
+  setLocation(day.location);
   setTemp(day, tempUnit);
   setIcon(day);
   setCondition(day);

@@ -4,14 +4,14 @@
  */
 
 // prettier-ignore
-function renderChat(day, loc, tempUnit) {
+function renderChat(day, tempUnit) {
   const chat = document.querySelector("#chat");
   clearChat(chat);
 
   chat.appendChild(setBubble(
     "Tom",
     "received",
-    `How's the weather in <span>${loc.split(",", 2)[0]}</span>?`
+    `How's the weather in <span>${day.location.split(",", 2)[0]}</span>?`
   ));
   chat.appendChild(setBubble(
     "You",

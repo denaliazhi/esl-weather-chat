@@ -21,22 +21,26 @@ async function handler() {
   // Set default temperature unit
   let unit = "imperial";
 
-  let renderedForecast = await search(location, unit);
-  console.log(renderedForecast);
+  // Index [0-2] in forecasts array, representing
+  // the day for which the forecast is rendered
+  let dayToRender = 1;
+
+  let forecasts = await search(location, unit, dayToRender);
+  console.log(forecasts);
 
   // Handle user's new search
   const searchBtn = document.querySelector("button");
 
   searchBtn.addEventListener("click", () => {
-    let value = formatInput(input.value);
-    if (!isValidInput(value)) {
+    let place = formatInput(input.value);
+    if (!isValidInput(place)) {
       alert("Invalid input. Use format: city*, state, country. * = required.");
       return;
     }
 
-    search(value, unit)
+    search(place, unit, dayToRender)
       .then((resp) => {
-        renderedForecast = resp;
+        forecasts = resp;
       })
       .catch((err) => {
         alert(`We couldn't get the forecast for this location. ${err}`);
@@ -50,8 +54,8 @@ async function handler() {
 
   toggle.addEventListener("click", () => {
     switchUnit();
-    setTemp(renderedForecast, unit);
-    setTempInChat(renderedForecast, unit);
+    setTemp(forecasts[dayToRender], unit);
+    setTempInChat(forecasts[dayToRender], unit);
   });
 
   function switchUnit() {
@@ -70,9 +74,31 @@ async function handler() {
     }
     unit = toggle.id;
   }
+
+  // Handle nav button for previous day's forecast
+  const prev = document.querySelector("#prev");
+  prev.addEventListener("click", () => {
+    // If no prev day to display, do nothing
+    if (dayToRender === 0) return;
+
+    dayToRender--;
+    renderForecast(forecasts[dayToRender], unit);
+    renderChat(forecasts[dayToRender], unit);
+  });
+
+  // Handle nav button for next day's forecast
+  const next = document.querySelector("#next");
+  next.addEventListener("click", () => {
+    // If no next day to display, do nothing
+    if (dayToRender === forecasts.length - 1) return;
+
+    dayToRender++;
+    renderForecast(forecasts[dayToRender], unit);
+    renderChat(forecasts[dayToRender], unit);
+  });
 }
 
-async function search(loc, unit) {
+async function search(loc, unit, dayToRender) {
   try {
     // Fetch current weather data for location
     const data = await getWeatherData(loc);
@@ -81,14 +107,15 @@ async function search(loc, unit) {
     const dailyForecasts = splitByDay(data);
 
     // Update last searched location in local storage
-    const validLoc = data.resolvedAddress;
-    localStorage.setItem("lastSearch", validLoc);
+    localStorage.setItem("lastSearch", data.resolvedAddress);
 
-    // For current day's forecast:
-    renderForecast(dailyForecasts[1], validLoc, unit);
-    renderChat(dailyForecasts[1], validLoc, unit);
+    // Render current day's forecast
+    dayToRender = 1;
+    renderForecast(dailyForecasts[dayToRender], unit);
+    renderChat(dailyForecasts[dayToRender], unit);
 
-    return dailyForecasts[1];
+    // Return array of forecasts (prev, curr, and next day)
+    return dailyForecasts;
   } catch (err) {
     console.log(err);
     throw err;
