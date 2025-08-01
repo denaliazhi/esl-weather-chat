@@ -78,7 +78,6 @@ async function handler() {
   // Handle nav button for previous day's forecast
   const prev = document.querySelector("#prev");
   prev.addEventListener("click", () => {
-    // If no prev day to display, do nothing
     if (dayToRender === 0) return;
 
     dayToRender--;
@@ -89,7 +88,6 @@ async function handler() {
   // Handle nav button for next day's forecast
   const next = document.querySelector("#next");
   next.addEventListener("click", () => {
-    // If no next day to display, do nothing
     if (dayToRender === forecasts.length - 1) return;
 
     dayToRender++;

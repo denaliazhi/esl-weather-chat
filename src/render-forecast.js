@@ -2,9 +2,11 @@
  * This module manipulates the forecast
  * section of the DOM
  */
+import moment from "moment";
 
 function renderForecast(day, tempUnit) {
   setLocation(day.location);
+  setDayNav(day);
   setTemp(day, tempUnit);
   setIcon(day);
   setCondition(day);
@@ -100,6 +102,28 @@ function setHumidity(day) {
 function setPrecip(day) {
   const precip = document.querySelector("#precip p");
   precip.textContent = day.precipProb + "%";
+}
+
+function setDayNav(day) {
+  const dayTitle = document.querySelector("#day");
+  const prev = document.querySelector("#prev");
+  const next = document.querySelector("#next");
+
+  const forecastDay = moment(day.date);
+  const today = moment();
+  if (forecastDay.isSame(today, "day")) {
+    dayTitle.textContent = "Today";
+    prev.textContent = "<";
+    next.textContent = ">";
+  } else if (forecastDay.isAfter(today, "day")) {
+    dayTitle.textContent = "Tomorrow";
+    prev.textContent = "<";
+    next.textContent = "";
+  } else {
+    dayTitle.textContent = "Yesterday";
+    prev.textContent = "";
+    next.textContent = ">";
+  }
 }
 
 export { renderForecast, setTemp };
