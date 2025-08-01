@@ -4,7 +4,7 @@
  */
 
 // prettier-ignore
-function renderChat(day, loc) {
+function renderChat(day, loc, tempUnit) {
   const chat = document.querySelector("#chat");
   clearChat(chat);
 
@@ -24,10 +24,11 @@ function renderChat(day, loc) {
     "received",
     "What's the temperature?"
   ));
+  const temp = (tempUnit === "imperial") ? day.farenheit : day.celsius;
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `It's ${day.farenheit} degrees.`
+    `It's ${temp} degrees.`
   ));
 
   chat.appendChild(setBubble(
@@ -112,4 +113,11 @@ function describeRain(prob) {
   }
 }
 
-export default renderChat;
+function setTempInChat(day, tempUnit) {
+  const sent = document.querySelectorAll(".sent")[1];
+  const temp = sent.querySelector("p");
+  const newTemp = tempUnit === "imperial" ? day.farenheit : day.celsius;
+  temp.textContent = `It's ${newTemp} degrees.`;
+}
+
+export { renderChat, setTempInChat };

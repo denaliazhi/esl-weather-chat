@@ -15,7 +15,8 @@ class Forecast {
   }
 
   get celsius() {
-    return (this.farenheit - 32) * (5 / 9);
+    // Converts and rounds to 1 decimal place
+    return Math.round((this.farenheit - 32) * (5 / 9) * 10) / 10;
   }
 }
 

@@ -6,10 +6,10 @@
 import "./styles.css";
 import getWeatherData from "./weather-api.js";
 import splitByDay from "./daily-forecasts.js";
-import renderForecast from "./render-forecast.js";
-import renderChat from "./render-chat.js";
+import { renderForecast, setTemp } from "./render-forecast.js";
+import { renderChat, setTempInChat } from "./render-chat.js";
 
-function handler() {
+async function handler() {
   // Determine content to show on page load
   let location = localStorage.getItem("lastSearch")
     ? localStorage.getItem("lastSearch")
@@ -18,9 +18,13 @@ function handler() {
   const input = document.querySelector("input");
   input.setAttribute("placeholder", location);
 
-  search(location);
+  // Set default temperature unit
+  let unit = "imperial";
 
-  // Handle new search
+  let renderedForecast = await search(location, unit);
+  console.log(renderedForecast);
+
+  // Handle user's new search
   const searchBtn = document.querySelector("button");
 
   searchBtn.addEventListener("click", () => {
@@ -30,38 +34,45 @@ function handler() {
       return;
     }
 
-    search(value).catch((err) => {
-      alert(`We couldn't get the forecast for this location. ${err}`);
-    });
+    search(value, unit)
+      .then((resp) => {
+        renderedForecast = resp;
+      })
+      .catch((err) => {
+        alert(`We couldn't get the forecast for this location. ${err}`);
+      });
   });
+
   // Handle temperature toggle
   const toggle = document.querySelector(".toggle div");
   const indicator = toggle.querySelector("div");
   const labels = document.querySelectorAll(".toggle p");
-  console.log(labels);
 
   toggle.addEventListener("click", () => {
-    console.log(toggle.id);
-    // TO DO: move the following DOM manipulation into separate function
-    if (toggle.id === "f") {
-      console.log("converting to celsius");
+    switchUnit();
+    setTemp(renderedForecast, unit);
+    setTempInChat(renderedForecast, unit);
+  });
+
+  function switchUnit() {
+    if (toggle.id === "imperial") {
+      // Switching to metric (celsius)
       indicator.style.marginLeft = "auto";
       labels[0].style.color = "var(--translucent)";
       labels[1].style.color = "white";
-      // TO DO: call func to convert temp display
-      toggle.id = "c";
+      toggle.id = "metric";
     } else {
-      console.log("converting to farenheit");
+      // Switching to imperial (farenheit)
       indicator.style.removeProperty("margin-left");
       labels[0].style.color = "white";
       labels[1].style.color = "var(--translucent)";
-      // TO DO: call func to convert temp display
-      toggle.id = "f";
+      toggle.id = "imperial";
     }
-  });
+    unit = toggle.id;
+  }
 }
 
-async function search(loc) {
+async function search(loc, unit) {
   try {
     // Fetch current weather data for location
     const data = await getWeatherData(loc);
@@ -74,8 +85,10 @@ async function search(loc) {
     localStorage.setItem("lastSearch", validLoc);
 
     // For current day's forecast:
-    renderForecast(dailyForecasts[1], validLoc);
-    renderChat(dailyForecasts[1], validLoc);
+    renderForecast(dailyForecasts[1], validLoc, unit);
+    renderChat(dailyForecasts[1], validLoc, unit);
+
+    return dailyForecasts[1];
   } catch (err) {
     console.log(err);
     throw err;

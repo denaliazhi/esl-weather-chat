@@ -3,9 +3,9 @@
  * section of the DOM
  */
 
-function renderForecast(day, loc) {
+function renderForecast(day, loc, tempUnit) {
   setLocation(loc);
-  setTemp(day);
+  setTemp(day, tempUnit);
   setIcon(day);
   setCondition(day);
   setHumidity(day);
@@ -21,9 +21,12 @@ function setLocation(loc) {
   p.textContent = details;
 }
 
-function setTemp(day) {
+function setTemp(day, tempUnit) {
   const temp = document.querySelector("#temp");
-  temp.textContent = day.farenheit;
+  temp.textContent = tempUnit === "imperial" ? day.farenheit : day.celsius;
+
+  const unit = document.querySelector("#unit");
+  unit.textContent = tempUnit === "imperial" ? "°F" : "°C";
 }
 
 function setIcon(day) {
@@ -99,4 +102,4 @@ function setPrecip(day) {
   precip.textContent = day.precipProb + "%";
 }
 
-export default renderForecast;
+export { renderForecast, setTemp };
