@@ -11,12 +11,12 @@ function renderChat(day, loc, tempUnit) {
   chat.appendChild(setBubble(
     "Tom",
     "received",
-    `How's the weather in ${loc.split(",", 2)[0]}?`
+    `How's the weather in <span>${loc.split(",", 2)[0]}</span>?`
   ));
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `It's ${describeTemp(day.feelsLike)} today.`
+    `It's <span>${describeTemp(day.feelsLike)}</span> today.`
   ));
 
   chat.appendChild(setBubble(
@@ -28,7 +28,7 @@ function renderChat(day, loc, tempUnit) {
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `It's ${temp} degrees.`
+    `It's <span>${temp}</span> degrees.`
   ));
 
   chat.appendChild(setBubble(
@@ -39,7 +39,7 @@ function renderChat(day, loc, tempUnit) {
   chat.appendChild(setBubble(
     "You",
     "sent",
-    describeHumidity(day.dewpoint)
+    `<span>${describeHumidity(day.dewpoint)}</span>`
   ));
 
   chat.appendChild(setBubble(
@@ -50,7 +50,7 @@ function renderChat(day, loc, tempUnit) {
   chat.appendChild(setBubble(
     "You",
     "sent",
-    describeRain(day.precipProb)
+    `<span>${describeRain(day.precipProb)}</span>`
   ));
 }
 
@@ -68,7 +68,7 @@ function setBubble(label, status, content) {
   bubble.classList.add(status);
 
   const text = document.createElement("p");
-  text.textContent = content;
+  text.innerHTML = content;
   bubble.appendChild(text);
 
   container.append(name, bubble);
@@ -88,28 +88,22 @@ function describeTemp(temp) {
 }
 
 function describeHumidity(dew) {
-  if (dew > 70) {
-    return "Yes, it's very humid.";
-  } else if (dew > 60) {
+  if (dew > 65) {
     return "Yes, it's humid.";
-  } else if (dew > 55) {
+  } else if (dew > 50) {
     return "It's comfortable.";
   } else {
-    return "No, it isn't humid.";
+    return "No, it's not humid.";
   }
 }
 
 function describeRain(prob) {
-  if (prob === 100) {
-    return "It's raining right now.";
-  } else if (prob > 60) {
-    return "Yes, it probably will rain.";
+  if (prob > 60) {
+    return "Yes, I think it will rain.";
   } else if (prob > 40) {
-    return "It might rain.";
-  } else if (prob > 10) {
-    return "No, it probably won't rain.";
+    return "I'm not sure. It might rain.";
   } else {
-    return "No, it won't rain.";
+    return "No, I don't think it will rain.";
   }
 }
 
