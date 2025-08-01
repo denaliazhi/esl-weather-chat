@@ -6,6 +6,7 @@
 // prettier-ignore
 function renderChat(day, loc) {
   const chat = document.querySelector("#chat");
+  clearChat(chat);
 
   chat.appendChild(setBubble(
     "Tom",
@@ -50,6 +51,10 @@ function renderChat(day, loc) {
     "sent",
     describeRain(day.precipProb)
   ));
+}
+
+function clearChat(chat) {
+  chat.replaceChildren();
 }
 
 function setBubble(label, status, content) {

@@ -16,7 +16,7 @@ function handler() {
     : "New York, NY";
 
   const input = document.querySelector("input");
-  input.value = location;
+  input.setAttribute("placeholder", location);
 
   search(location);
 
