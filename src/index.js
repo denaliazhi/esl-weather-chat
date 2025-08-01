@@ -15,10 +15,12 @@ function handler() {
     ? localStorage.getItem("lastSearch")
     : "New York, NY";
 
+  const input = document.querySelector("input");
+  input.value = location;
+
   search(location);
 
   // Handle new search
-  const input = document.querySelector("input");
   const searchBtn = document.querySelector("button");
 
   searchBtn.addEventListener("click", () => {

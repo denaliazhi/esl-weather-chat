@@ -175,16 +175,22 @@ body > div > div:nth-child(2) {
 
 /* Chat section */
 
+.header + div > div:last-child {
+  width: 50%;
+  height: 21.5rem;
+  overflow: auto;
+}
+
 #chat {
   padding: 1rem 1.4rem;
   display: flex;
   flex-direction: column;
-  width: 50%;
+
   font-size: 0.7rem;
 }
 
-.chat-bubble > div {
-  width: 10.3rem;
+#chat > div > div {
+  width: 27ch;
   padding: 0.75rem;
   border-radius: 0.5rem;
   position: relative;
@@ -192,21 +198,21 @@ body > div > div:nth-child(2) {
   color: #1a1a1a;
 }
 
-.chat-bubble > p:first-child {
+#chat > div > p:first-child {
   color: white;
   margin-bottom: 0.2rem;
 }
 
-.chat-bubble:nth-child(even) {
+#chat > div:nth-child(even) {
   text-align: right;
   align-self: flex-end;
 }
 
-.chat-bubble:nth-child(even) div p {
+#chat > div:nth-child(even) div p {
   text-align: left;
 }
 
-.chat-bubble span {
+#chat > div span {
   font-weight: 600;
   color: #115468;
   cursor: pointer;
