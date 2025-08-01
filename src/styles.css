@@ -31,6 +31,8 @@ input[type="text"] {
   border: none;
   background: none;
   font-size: 0.8rem;
+  color: white;
+  cursor: pointer;
 }
 
 /* Header section */
@@ -104,7 +106,6 @@ body > div > div:nth-child(2) {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   width: 50%;
   height: 100%;
   border-top-left-radius: 0.7rem;
@@ -151,12 +152,33 @@ body > div > div:nth-child(2) {
 }
 
 #forecast > div {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem 0;
 }
 
 #location,
 #main {
   width: 100%;
+}
+
+/* Nav bar for previous or next day */
+#location + div {
+  padding: 0.3rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: min-content;
+  align-items: flex-start;
+  color: white;
+  background-color: var(--more-translucent);
+}
+
+#location + div > h2 {
+  font-size: 0.7rem;
+}
+
+#forecast > #main {
+  padding-top: 0;
+  padding-bottom: 0.5rem;
 }
 
 #humidity,
