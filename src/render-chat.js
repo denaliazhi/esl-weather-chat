@@ -3,38 +3,49 @@
  * section of the DOM
  */
 
+import { getRelativeTime } from "./render-forecast";
+
+let time, verbTense;
+
 // prettier-ignore
 function renderChat(day, tempUnit) {
+  // Set verb tense in chat messages based on
+  // forecast day relative to today
+  time = getRelativeTime(day);
+  verbTense = time == 0 ? "was" : time == 1 ? "is" : "will be";
+
   const chat = document.querySelector("#chat");
   clearChat(chat);
 
   chat.appendChild(setBubble(
     "Tom",
     "received",
-    `How's the weather in <span>${day.location.split(",", 2)[0]}</span>?`
+    time != 2 ? `How ${verbTense} the weather in <span>${day.location.split(",", 2)[0]}</span> ${(time == 0) ? "yesterday" : "today"}?` :
+    `How will the weather be in <span>${day.location.split(",", 2)[0]}</span> tomorrow?`
   ));
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `It's <span>${describeTemp(day.feelsLike)}</span> today.`
+    `It ${verbTense} <span>${describeTemp(day.feelsLike)}</span>.`
   ));
 
   chat.appendChild(setBubble(
     "Tom",
     "received",
-    "What's the temperature?"
+    `What ${verbTense} the temperature?`
   ));
   const temp = (tempUnit === "imperial") ? day.farenheit : day.celsius;
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `It's <span>${temp}</span> degrees.`
+    `It ${verbTense} <span>${temp}</span> degrees.`
   ));
 
   chat.appendChild(setBubble(
     "Tom",
     "received",
-    "Is it humid outside?"
+    time != 2 ? `${verbTense.charAt(0).toUpperCase() + verbTense.slice(1)} it humid outside?` :
+    "Will it be humid outside?" 
   ));
   chat.appendChild(setBubble(
     "You",
@@ -45,12 +56,14 @@ function renderChat(day, tempUnit) {
   chat.appendChild(setBubble(
     "Tom",
     "received",
+    time == 0 ? "Did it rain?" :
+    time == 1 ? "Is it raining?" :
     "Will it rain?"
   ));
   chat.appendChild(setBubble(
     "You",
     "sent",
-    `<span>${describeRain(day.precipProb)}</span>`
+    `<span>${describeRain(day.precipProb)}</span> The chance of rain ${verbTense} <span>${day.precipProb}</span> percent.`
   ));
 }
 
@@ -89,21 +102,23 @@ function describeTemp(temp) {
 
 function describeHumidity(dew) {
   if (dew > 65) {
-    return "Yes, it's humid.";
+    return `Yes, it ${verbTense} humid.`;
   } else if (dew > 50) {
-    return "It's comfortable.";
+    return `It ${verbTense} comfortable.`;
   } else {
-    return "No, it's not humid.";
+    return `No, it ${verbTense} not humid.`;
   }
 }
 
 function describeRain(prob) {
-  if (prob > 60) {
-    return "Yes, I think it will rain.";
+  const rainTense =
+    time == 0 ? "it rained." : time == 1 ? "it is raining." : "it will rain.";
+  if (prob > 70) {
+    return `Yes, I think ${rainTense}`;
   } else if (prob > 40) {
-    return "I'm not sure. It might rain.";
+    return `I'm not sure ${rainTense}`;
   } else {
-    return "No, I don't think it will rain.";
+    return `I don't think ${rainTense}`;
   }
 }
 
@@ -111,7 +126,7 @@ function setTempInChat(day, tempUnit) {
   const sent = document.querySelectorAll(".sent")[1];
   const temp = sent.querySelector("p");
   const newTemp = tempUnit === "imperial" ? day.farenheit : day.celsius;
-  temp.textContent = `It's ${newTemp} degrees.`;
+  temp.textContent = `It ${verbTense} ${newTemp} degrees.`;
 }
 
 export { renderChat, setTempInChat };

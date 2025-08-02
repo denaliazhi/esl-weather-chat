@@ -22,7 +22,7 @@ async function handler() {
   let unit = "imperial";
 
   // Index [0-2] in forecasts array, representing
-  // the day for which the forecast is rendered
+  // 0 = Yesterday, 1 = Today, 2 = Tomorrow
   let dayToRender = 1;
 
   let forecasts = await search(location, unit, dayToRender);
@@ -81,6 +81,7 @@ async function handler() {
     if (dayToRender === 0) return;
 
     dayToRender--;
+    console.log(dayToRender);
     renderForecast(forecasts[dayToRender], unit);
     renderChat(forecasts[dayToRender], unit);
   });
@@ -91,6 +92,7 @@ async function handler() {
     if (dayToRender === forecasts.length - 1) return;
 
     dayToRender++;
+    console.log(dayToRender);
     renderForecast(forecasts[dayToRender], unit);
     renderChat(forecasts[dayToRender], unit);
   });

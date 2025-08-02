@@ -105,25 +105,42 @@ function setPrecip(day) {
 }
 
 function setDayNav(day) {
+  const time = getRelativeTime(day);
   const dayTitle = document.querySelector("#day");
+  switch (time) {
+    case 0:
+      dayTitle.textContent = "Yesterday";
+      break;
+    case 1:
+      dayTitle.textContent = "Today";
+      break;
+    case 2:
+      dayTitle.textContent = "Tomorrow";
+      break;
+  }
+
   const prev = document.querySelector("#prev");
   const next = document.querySelector("#next");
 
-  const forecastDay = moment(day.date);
-  const today = moment();
-  if (forecastDay.isSame(today, "day")) {
-    dayTitle.textContent = "Today";
-    prev.textContent = "<";
-    next.textContent = ">";
-  } else if (forecastDay.isAfter(today, "day")) {
-    dayTitle.textContent = "Tomorrow";
-    prev.textContent = "<";
-    next.textContent = "";
-  } else {
-    dayTitle.textContent = "Yesterday";
-    prev.textContent = "";
-    next.textContent = ">";
-  }
+  // Show '<' button if forecast is for today or tomorrow
+  prev.textContent = `${time >= 1 ? "<" : ""}`;
+
+  // Show '>' button if forecast is for today or tomorrow
+  next.textContent = `${time <= 1 ? ">" : ""}`;
 }
 
-export { renderForecast, setTemp };
+function getRelativeTime(day) {
+  const forecastDay = moment(day.date);
+  const today = moment();
+
+  if (forecastDay.isSame(today, "day")) {
+    return 1;
+  } else if (forecastDay.isAfter(today, "day")) {
+    // Tomorrow
+    return 2;
+  }
+  // Yesterday
+  return 0;
+}
+
+export { renderForecast, setTemp, getRelativeTime };
