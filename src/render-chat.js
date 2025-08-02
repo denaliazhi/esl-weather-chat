@@ -126,7 +126,7 @@ function setTempInChat(day, tempUnit) {
   const sent = document.querySelectorAll(".sent")[1];
   const temp = sent.querySelector("p");
   const newTemp = tempUnit === "imperial" ? day.farenheit : day.celsius;
-  temp.textContent = `It ${verbTense} ${newTemp} degrees.`;
+  temp.innerHTML = `It ${verbTense} <span>${newTemp}</span> degrees.`;
 }
 
 export { renderChat, setTempInChat };

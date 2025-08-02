@@ -81,7 +81,6 @@ async function handler() {
     if (dayToRender === 0) return;
 
     dayToRender--;
-    console.log(dayToRender);
     renderForecast(forecasts[dayToRender], unit);
     renderChat(forecasts[dayToRender], unit);
   });
@@ -92,7 +91,6 @@ async function handler() {
     if (dayToRender === forecasts.length - 1) return;
 
     dayToRender++;
-    console.log(dayToRender);
     renderForecast(forecasts[dayToRender], unit);
     renderChat(forecasts[dayToRender], unit);
   });
