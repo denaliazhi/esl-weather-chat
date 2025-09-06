@@ -12,16 +12,19 @@
 body {
   font-family: "Wix Madefor Display", Arial, Helvetica, sans-serif;
   color: white;
-  background: url(assets/gradient-background.png) no-repeat center / cover;
+  background: var(--background);
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transform: scale(0.8);
 }
 
 :root {
   --translucent: rgba(255, 255, 255, 0.4);
   --more-translucent: rgba(255, 255, 255, 0.15);
+  --background: #1d3e51;
 }
 
 button,
@@ -95,9 +98,12 @@ body > div > div:nth-child(2),
 /* Parent container for Forecast + Chat */
 
 body > div > div:nth-child(2) {
-  border: 1px solid var(--translucent);
+  border: 2px solid var(--translucent);
   border-radius: 0.7rem;
   height: 23rem;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--more-translucent) transparent;
 }
 
 /* Weather forecast section */
@@ -169,7 +175,7 @@ body > div > div:nth-child(2) {
   height: min-content;
   align-items: flex-start;
   color: white;
-  background-color: var(--more-translucent);
+  border-bottom: 1px solid var(--background);
 }
 
 #location + div > h2 {
@@ -188,11 +194,11 @@ body > div > div:nth-child(2) {
 
 #location,
 #main {
-  border-bottom: 1px solid var(--translucent);
+  border-bottom: 1px solid var(--background);
 }
 
 #humidity {
-  border-right: 1px solid var(--translucent);
+  border-right: 1px solid var(--background);
 }
 
 /* Chat section */
